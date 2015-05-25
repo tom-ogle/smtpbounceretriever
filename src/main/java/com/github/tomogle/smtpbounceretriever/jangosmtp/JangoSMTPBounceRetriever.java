@@ -43,6 +43,13 @@ public class JangoSMTPBounceRetriever extends BounceRetriever {
       }
     }
     while((line = connectionReader.readLine()) != null) {
+      if (line.endsWith("</string>")) {
+        String emailAddress = line.replace("</string>", "");
+        if (!emailAddress.equals("")) {
+          bounces.add(emailAddress);
+        }
+        break;
+      }
       bounces.add(line);
     }
     return bounces;
